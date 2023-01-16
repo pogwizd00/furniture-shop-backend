@@ -4,6 +4,7 @@ import { UpdateFurnitureDto } from './dto/update-furniture.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { FilterFurnitureDto } from './dto/filter-furniture.dto';
 import { FurnituresWhereInput } from 'prisma';
+import { FindAllFurnitureDto } from './dto/find-allFurniture.dto';
 
 @Injectable()
 export class FurnituresService {
@@ -18,6 +19,7 @@ export class FurnituresService {
         specific: createFurnitureDto.specific,
         price: createFurnitureDto.prize,
         producerId: producerId,
+        userId: userId,
       },
     });
   }

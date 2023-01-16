@@ -12,6 +12,8 @@ import { FurnituresService } from './furnitures.service';
 import { CreateFurnitureDto } from './dto/create-furniture.dto';
 import { UpdateFurnitureDto } from './dto/update-furniture.dto';
 import { FilterFurnitureDto } from './dto/filter-furniture.dto';
+import { FindAllFurnitureDto } from './dto/find-allFurniture.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Controller('furnitures')
 export class FurnituresController {
@@ -24,7 +26,8 @@ export class FurnituresController {
 
   @Get()
   findAll() {
-    return this.furnituresService.findAll();
+    const furnitures = this.furnituresService.findAll();
+    return plainToInstance(FindAllFurnitureDto, furnitures);
   }
 
   @Get(':id')
