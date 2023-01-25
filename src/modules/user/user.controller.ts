@@ -14,6 +14,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user-dto';
 import { plainToInstance } from 'class-transformer';
+import { UserFurnitureDto } from './dto/userFurniture-dto';
+import { UpdateFurnitureDto } from '../furnitures/dto/update-furniture.dto';
+import { UpdateFurnitureList } from './dto/updateFurnitureList';
 
 @Controller('user')
 export class UserController {
@@ -32,17 +35,33 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     const user = this.userService.findOne(id);
-    return plainToInstance(UserDto, user);
+    return new UserFurnitureDto(await user);
   }
 
-  @Put(':id')
+  //zmiana z put na patch bo bede zmienial tylko liste furniture
+  @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.userService.update(id, updateUserDto);
+  }
+
+  //na tym etapie wysylac id usera do  funckji updateFurnitureList
+
+  @Post('update_list/:id_user/:id_furniture')
+  updateFutnitureList(
+    @Param('id_user', ParseIntPipe) id_user: number,
+    @Param('id_furniture', ParseIntPipe) id_furniture: number,
+    @Body() updateFurnitureList: UpdateFurnitureList,
+  ) {
+    return this.userService.updateFurnitureList(
+      id_user,
+      id_furniture,
+      updateFurnitureList,
+    );
   }
 
   @Delete(':id')

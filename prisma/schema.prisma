@@ -11,12 +11,21 @@ datasource db {
 }
 
 model User {
-  id        Int          @id @default(autoincrement())
-  firstName String       @db.VarChar(255)
-  lastName  String       @db.VarChar(255)
-  email     String       @unique
-  password  String       @db.VarChar(255)
-  basket    Furnitures[]
+  id         Int             @id @default(autoincrement())
+  firstName  String          @db.VarChar(255)
+  lastName   String          @db.VarChar(255)
+  email      String          @unique
+  password   String          @db.VarChar(255)
+  furnitures UserFurniture[]
+}
+
+model UserFurniture {
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       Int
+  firnitures   Furnitures @relation(fields: [furnituresId], references: [id], onDelete: Cascade)
+  furnituresId Int
+
+  @@id([userId, furnituresId])
 }
 
 model Furnitures {
@@ -25,17 +34,14 @@ model Furnitures {
   specific String @unique
   price    Int
 
-  User   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int?
-
-  producer   Producer @relation(fields: [producerId], references: [id], onDelete: Cascade)
+  producer   Producer        @relation(fields: [producerId], references: [id], onDelete: Cascade)
   producerId Int
+  users      UserFurniture[]
 }
 
 model Producer {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  about String @db.VarChar(255)
-
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  about      String       @db.VarChar(255)
   Furnitures Furnitures[]
 }

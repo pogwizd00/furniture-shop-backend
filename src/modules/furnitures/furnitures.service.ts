@@ -19,7 +19,6 @@ export class FurnituresService {
         specific: createFurnitureDto.specific,
         price: createFurnitureDto.prize,
         producerId: producerId,
-        userId: userId,
       },
     });
   }

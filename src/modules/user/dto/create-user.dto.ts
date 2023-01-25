@@ -1,4 +1,12 @@
-import { IsEmail, IsString, MinLength, Validate } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MinLength,
+  Validate,
+} from 'class-validator';
 import { UniqueEmailValidator } from '../../../validators/unique-email-validator';
 import { PasswordValidator } from '../../../validators/password-validator';
 
@@ -14,4 +22,9 @@ export class CreateUserDto {
   @MinLength(8)
   @Validate(PasswordValidator)
   password: string;
+
+  @IsNumber({}, { each: true })
+  @IsOptional()
+  @IsArray()
+  furnituresId?: number[] = [];
 }
