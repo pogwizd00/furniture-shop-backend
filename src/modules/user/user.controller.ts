@@ -17,6 +17,7 @@ import { plainToInstance } from 'class-transformer';
 import { UserFurnitureDto } from './dto/userFurniture-dto';
 import { UpdateFurnitureDto } from '../furnitures/dto/update-furniture.dto';
 import { UpdateFurnitureList } from './dto/updateFurnitureList';
+import { ListFurnitureForUserDto } from './dto/listFurnitureForUserDto';
 
 @Controller('user')
 export class UserController {
@@ -47,6 +48,14 @@ export class UserController {
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return this.userService.update(id, updateUserDto);
+  }
+
+  @Get('furnitures-list/:id')
+  getListOfFurniture(
+    @Param('id', ParseIntPipe) id: number,
+    listFurnituresForUser: ListFurnitureForUserDto,
+  ) {
+    return this.userService.getListOfFurniture(id, listFurnituresForUser);
   }
 
   //na tym etapie wysylac id usera do  funckji updateFurnitureList

@@ -6,6 +6,7 @@ import * as argon2 from 'argon2';
 import { prisma, User } from '@prisma/client';
 import { UpdateFurnitureDto } from '../furnitures/dto/update-furniture.dto';
 import { UpdateFurnitureList } from './dto/updateFurnitureList';
+import { ListFurnitureForUserDto } from './dto/listFurnitureForUserDto';
 
 @Injectable()
 export class UserService {
@@ -65,6 +66,22 @@ export class UserService {
     });
     if (!user) throw new NotFoundException("User doesn't exist");
     return user;
+  }
+
+  async getListOfFurniture(
+    id: number,
+    listOfFurnituresForUserL: ListFurnitureForUserDto,
+  ) {
+    return await this.prismaService.user.findUnique({
+      where: { id },
+      select: {
+        furnitures: {
+          select: {
+            furnituresId: true,
+          },
+        },
+      },
+    });
   }
 
   //todo tutaj bede musial po pobraniu usera jakos unhashtagowac haslo
