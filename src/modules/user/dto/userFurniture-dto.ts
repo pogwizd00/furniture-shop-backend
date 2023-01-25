@@ -1,7 +1,7 @@
 import { User } from '@prisma/client';
 
 //alias
-type UserWithFurnitures = User & { furnitures: { furnituresId: number }[] };
+type UserWithFurnitures = User & { furnitures };
 
 export class UserFurnitureDto {
   id: number;
