@@ -80,6 +80,22 @@ export class UserService {
     });
   }
 
+  async getListOfFurniture(
+    id: number,
+    listOfFurnituresForUserL: ListFurnitureForUserDto,
+  ) {
+    return await this.prismaService.user.findUnique({
+      where: { id },
+      select: {
+        furnitures: {
+          select: {
+            furnituresId: true,
+          },
+        },
+      },
+    });
+  }
+
   //todo tutaj bede musial po pobraniu usera jakos unhashtagowac haslo
 
   async update(id: number, updateUserDto: UpdateUserDto) {
