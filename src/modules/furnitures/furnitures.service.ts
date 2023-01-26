@@ -5,10 +5,15 @@ import { PrismaService } from '../prisma/prisma.service';
 import { FilterFurnitureDto } from './dto/filter-furniture.dto';
 import { FurnituresWhereInput } from 'prisma';
 import { FindAllFurnitureDto } from './dto/find-allFurniture.dto';
+import { UserService } from '../user/user.service';
+import { OnlyFurnituresIdDto } from '../user/dto/onlyFurnituresIdDto';
 
 @Injectable()
 export class FurnituresService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly userService: UserService,
+  ) {}
 
   create(createFurnitureDto: CreateFurnitureDto) {
     const { userId } = createFurnitureDto;
@@ -26,6 +31,17 @@ export class FurnituresService {
   //todo nie widzi type nie wiadomo dlaczego
   findAll() {
     return this.prismaService.furnitures.findMany({});
+  }
+
+  async findallFrunituresUser(id: number) {
+    const user = this.userService.findOne(id);
+    const furnituresIds = new OnlyFurnituresIdDto(await user);
+    const allFurnitures = this.prismaService.furnitures.findMany({
+      where: {
+        id: { in: furnituresIds.furnitures },
+      },
+    });
+    return allFurnitures;
   }
 
   async findOne(id: number) {

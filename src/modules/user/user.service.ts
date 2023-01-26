@@ -57,11 +57,7 @@ export class UserService {
       //   furnitures: true,
       // },
       include: {
-        furnitures: {
-          select: {
-            furnituresId: true,
-          },
-        },
+        furnitures: {},
       },
     });
     if (!user) throw new NotFoundException("User doesn't exist");
