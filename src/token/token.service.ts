@@ -6,7 +6,7 @@ export class TokenService {
   constructor(private readonly jwtService: JwtService) {}
 
   createToken(userId: number): string {
-    // token bedzie wazny tylko jeden dzien
+    // only one day
     return this.jwtService.sign({ sub: userId }, { expiresIn: '1 day' });
   }
 

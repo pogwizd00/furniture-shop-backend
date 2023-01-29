@@ -7,12 +7,7 @@ export class UserDto implements User {
   lastName: string;
   email: string;
   //nie wyrzucam hasla bo chce zeby zostalo niewidoczne
-  // constructor(user: User) {
-  //   this.id = user.id;
-  //   this.firstName = user.firstName;
-  //   this.lastName = user.lastName;
-  //   this.email = user.email;
-  // }
+
   //jesli chce zwrocic jakies inne dane to lepiej uzyc konstruktora dto
   @Exclude() // cos co nie chcemy pokazac uzytkownikowi
   password: string;

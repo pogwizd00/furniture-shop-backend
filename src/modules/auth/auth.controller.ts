@@ -16,6 +16,9 @@ export class AuthController {
   //passthorugh nie pozbawiamy sie mozliwosci zwracania rzeczy z controlera
   login(@UserId() userId: number, @Res({ passthrough: true }) res: Response) {
     const token = this.tokenService.createToken(userId);
+    res.cookie('user-id', userId, {
+      expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 dzien
+    });
     res.cookie('access-token', token, {
       httpOnly: true,
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 dzien
@@ -30,5 +33,6 @@ export class AuthController {
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('access-token');
     res.clearCookie('is-logged');
+    res.clearCookie('user-id');
   }
 }

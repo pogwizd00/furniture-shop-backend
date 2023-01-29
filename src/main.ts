@@ -17,7 +17,7 @@ async function bootstrap() {
   );
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-  app.use(cookieParser()); // uzywamy cookies aby przegladarka nie zwracala tokenu uzytkownika bo to niebezpieczne
+  app.use(cookieParser());
   app.enableCors({
     origin: 'http://localhost:3000',
     credentials: true,
