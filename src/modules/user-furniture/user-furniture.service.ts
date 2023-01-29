@@ -29,11 +29,22 @@ export class UserFurnitureService {
     return `This action updates a #${id} userFurniture`;
   }
 
-  update(id: number, updateUserFurnitureDto: UpdateUserFurnitureDto) {
+  update(
+    id: number,
+    id_furniture: number,
+    updateUserFurnitureDto: UpdateUserFurnitureDto,
+  ) {
     return `This action updates a #${id} userFurniture`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} userFurniture`;
+  async remove(id: number, id_furniture: number) {
+    await this.prismaService.userFurniture.delete({
+      where: {
+        userId_furnituresId: {
+          userId: id,
+          furnituresId: id_furniture,
+        },
+      },
+    });
   }
 }

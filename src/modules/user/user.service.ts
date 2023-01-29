@@ -3,8 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import * as argon2 from 'argon2';
-import { prisma, User } from '@prisma/client';
-import { UpdateFurnitureDto } from '../furnitures/dto/update-furniture.dto';
+import { User } from '@prisma/client';
 import { UpdateFurnitureList } from './dto/updateFurnitureList';
 import { ListFurnitureForUserDto } from './dto/listFurnitureForUserDto';
 
@@ -64,26 +63,7 @@ export class UserService {
     return user;
   }
 
-  async getListOfFurniture(
-    id: number,
-    listOfFurnituresForUserL: ListFurnitureForUserDto,
-  ) {
-    return await this.prismaService.user.findUnique({
-      where: { id },
-      select: {
-        furnitures: {
-          select: {
-            furnituresId: true,
-          },
-        },
-      },
-    });
-  }
-
-  async getListOfFurniture(
-    id: number,
-    listOfFurnituresForUserL: ListFurnitureForUserDto,
-  ) {
+  async getListOfFurniture(id: number) {
     return await this.prismaService.user.findUnique({
       where: { id },
       select: {

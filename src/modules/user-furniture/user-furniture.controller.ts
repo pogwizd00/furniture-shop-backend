@@ -36,16 +36,24 @@ export class UserFurnitureController {
     return this.userFurnitureService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch(':id/id_furniture')
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe) id_furniture: number,
     @Body() updateUserFurnitureDto: UpdateUserFurnitureDto,
   ) {
-    return this.userFurnitureService.update(+id, updateUserFurnitureDto);
+    return this.userFurnitureService.update(
+      id,
+      id_furniture,
+      updateUserFurnitureDto,
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userFurnitureService.remove(+id);
+  @Delete(':id/:id_furniture')
+  remove(
+    @Param('id', ParseIntPipe) id: number,
+    @Param('id_furniture', ParseIntPipe) id_furniture: number,
+  ) {
+    return this.userFurnitureService.remove(id, id_furniture);
   }
 }

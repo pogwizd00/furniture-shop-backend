@@ -45,3 +45,15 @@ model Producer {
   about      String       @db.VarChar(255)
   Furnitures Furnitures[]
 }
+
+model Orders {
+  id             Int      @id @default(autoincrement())
+  email          String
+  country        String
+  residence      String
+  postalCode     String
+  phoneNumber    String
+  price          Int
+  detailsToOrder String?
+  dateOfOrder    DateTime @default(now())
+}

@@ -11,6 +11,7 @@ import { ValidatorsModule } from './validators/validators.module';
 import { TokenModule } from './token/token.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserFurnitureModule } from './modules/user-furniture/user-furniture.module';
+import { OrdersModule } from './modules/orders/orders.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { UserFurnitureModule } from './modules/user-furniture/user-furniture.mod
     TokenModule,
     AuthModule,
     UserFurnitureModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
