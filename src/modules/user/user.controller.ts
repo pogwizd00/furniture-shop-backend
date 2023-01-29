@@ -55,7 +55,7 @@ export class UserController {
     @Param('id', ParseIntPipe) id: number,
     listFurnituresForUser: ListFurnitureForUserDto,
   ) {
-    return this.userService.getListOfFurniture(id, listFurnituresForUser);
+    return this.userService.getListOfFurniture(id);
   }
 
   //na tym etapie wysylac id usera do  funckji updateFurnitureList
